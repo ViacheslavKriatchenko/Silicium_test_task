@@ -175,6 +175,10 @@ class TestPage(BasePage):
             *self.TEXT_LOCATOR
             ).text == 'Thanks for submitting the form'
 
+    def assert_field(self):
+        table = self.driver.find_element("xpath", "//table")
+        print(table.text)
+
 # закрыть всплывающее окно
     def click_close_button(self):
         button = self.wait.until(

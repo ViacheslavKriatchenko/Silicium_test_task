@@ -71,3 +71,4 @@ class TestProfile(BaseTest):
         self.test_page.move_down()
         sleep(5)
         # er_2
+        self.test_page.assert_field()
