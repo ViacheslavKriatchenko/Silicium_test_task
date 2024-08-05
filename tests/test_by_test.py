@@ -8,7 +8,18 @@ import random
 class TestProfile(BaseTest):
 
     @pytest.mark.smoke
-    def test_task_practice(self):
+    @pytest.mark.parametrize(
+        'first_name, last_name, email, address, state, city',
+        [(
+                'Ivan',
+                'Ivanov',
+                'ivanov@example.com',
+                'planet Earth',
+                'Rajasthan',
+                'Jaipur',
+        )
+        ])
+    def test_task_practice(self, first_name, last_name, email, address, state, city):
 
         # description
         self.test_page.open()
@@ -16,18 +27,18 @@ class TestProfile(BaseTest):
         self.test_page.scroll_by(0, 200)  # скролл из-за рекламы
         # steps
         # step_1
-        self.test_page.enter_first_name("Иван")
+        self.test_page.enter_first_name(first_name)
         sleep(2)  # для отладки
         # step_2
-        self.test_page.enter_last_name("Иванов")
+        self.test_page.enter_last_name(last_name)
         sleep(2)
         # step_3
         self.test_page.move_down()  # нажатие стрелки вниз
-        self.test_page.enter_email("ivanov@example.com")
+        self.test_page.enter_email(email)
         sleep(2)
         # step_4
         self.test_page.move_down()
-        self.test_page.choose_a_gender()
+        self.test_page.choose_a_gender_Male()
         sleep(2)
         # step_5
         self.test_page.move_down()
@@ -52,15 +63,15 @@ class TestProfile(BaseTest):
         sleep(2)
         # step_9
         self.test_page.move_down()
-        self.test_page.enter_current_address("planet Earth")
+        self.test_page.enter_current_address(address)
         sleep(2)
         # step_10
         self.test_page.move_down()
-        self.test_page.select_state("Rajasthan")
+        self.test_page.select_state(state)
         sleep(2)
         # step_11
         self.test_page.move_down()
-        self.test_page.select_city("Jaipur")
+        self.test_page.select_city(city)
         sleep(2)
         # step_12
         self.test_page.move_down()

@@ -60,7 +60,7 @@ class TestPage(BasePage):
         ).send_keys(email)
 
 # выбираем пол
-    def choose_a_gender(self):
+    def choose_a_gender_Male(self):
         self.wait.until(
             EC.element_to_be_clickable((self.GENDER_MALE_LABEL_LOCATOR))
         ).click()
