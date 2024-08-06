@@ -109,7 +109,7 @@ class TestPage(BasePage):
         subjects = self.driver.find_element(*self.SUBJECTS_FIELD_LOCATOR)
         actions = ActionChains(self.driver)
         actions.move_to_element(subjects).send_keys("Computer").perform()
-        sleep(2)
+        # sleep(2)
         self.wait.until(
             EC.element_to_be_clickable((self.SUBJECTS_ELEMENT_LOCATOR))
             ).click()
@@ -165,27 +165,84 @@ class TestPage(BasePage):
             EC.element_to_be_clickable((self.SUBMIT_BUTTON_LOCATOR))
         ).click()
 
-# проверить заголовок
-    def check_form(self):
-        self.wait.until(
-            EC.text_to_be_present_in_element(
-                (self.TEXT_LOCATOR), 'Thanks for submitting the form')
-        )
-        assert self.driver.find_element(
-            *self.TEXT_LOCATOR
-            ).text == 'Thanks for submitting the form'
-
-    def assert_field(self):
+# печать текста таблицы
+    def print_table_data(self):
         table = self.driver.find_element("xpath", "//table")
         print(table.text)
 
-# закрыть всплывающее окно
-    def click_close_button(self):
-        button = self.wait.until(
-            EC.element_to_be_clickable((self.CLOSE_BUTTON_LOCATOR))
-        )
-        ActionChains(self.driver).scroll_to_element(
-            *self.CLOSE_BUTTON_LOCATOR
-            )  \
-            .click(button)  \
-            .perfome()
+# проверить заголовок
+    def check_visability_table_form(self):
+        self.wait.until(EC.presence_of_element_located(("xpath", "//table")))
+        # self.wait.until(
+        #     EC.text_to_be_present_in_element(
+        #         (self.TEXT_LOCATOR), 'Thanks for submitting the form')
+        # )
+        # assert self.driver.find_element(
+        #     *self.TEXT_LOCATOR
+        #     ).text == 'Thanks for submitting the form'
+
+# сравнить имя
+    def verify_full_name(self, first_name, last_name):
+        full_name = (f'{first_name} {last_name}')
+        text = self.driver.find_element(
+            "xpath", "(//*[contains(text(), 'Student Name')]/../td)[2]"
+            ).text
+        print(text)
+        assert full_name == text
+
+# сравнить почту
+    def verify_email(self, email):
+        text = self.driver.find_element(
+            "xpath", "(//*[contains(text(), 'Student Email')]/../td)[2]"
+            ).text
+        assert email == text
+
+# сравнить пол
+    def verify_gender(self):
+        text = self.driver.find_element(
+            "xpath", "(//*[contains(text(), 'Gender')]/../td)[2]"
+            ).text
+        assert "Male" == text
+
+# сравнить поле на 10 символов
+    def verify_Mobile(self):
+        text = self.driver.find_element(
+            "xpath", "(//*[contains(text(), 'Mobile')]/../td)[2]"
+            ).text
+        assert len(text) == 10
+
+# сравнить дату рождения
+    def verify_Date_of_Birth(self):
+        text = self.driver.find_element(
+            "xpath", "(//*[contains(text(), 'Date of Birth')]/../td)[2]"
+            ).text
+        assert "05 June,1985" == text
+
+# сравнить предмет
+    def verify_subjects(self):
+        text = self.driver.find_element(
+            "xpath", "(//*[contains(text(), 'Subjects')]/../td)[2]"
+            ).text
+        assert "Computer" in text
+
+# сравнить название картинки
+    def verify_picture(self):
+        text = self.driver.find_element(
+            "xpath", "(//*[contains(text(), 'Picture')]/../td)[2]"
+            ).text
+        assert "images.png" == text
+
+# сравнить адрес
+    def verify_address(self, address):
+        text = self.driver.find_element(
+            "xpath", "(//*[contains(text(), 'Address')]/../td)[2]"
+            ).text
+        assert address == text
+
+# сравнить штат и город
+    def verify_state_and_city(self, state, city):
+        state_and_city = (f'{state} {city}')
+        text = self.driver.find_element(
+            "xpath", "(//*[contains(text(), 'State and City')]/../td)[2]"
+            ).text
+        assert state_and_city == text
