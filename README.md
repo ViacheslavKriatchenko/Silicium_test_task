@@ -28,7 +28,6 @@
 - ./tests - тесты
   - test_by_test.py - тесты
   - images.png - файл для загрузки
-- README.md
 - conftest.py - файл настройки драйвера и фикстур
 - pytest.ini - файл настройки pytest
 - requirements.txt - список модулей и пакетов
